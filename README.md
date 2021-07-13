@@ -14,7 +14,7 @@ we'll be working around those issues with our deps and runbook.
 - `GO111MODULE` on
 - `go env`
 
-> Kind and kubeconfig
+> Kind and kubeconfig (note: tends to be buggy).
 - To get config of default cluster `kind get kubeconfig`
 - To get config for non default cluster, use cluster name: `kind get kubeconfig --name=guestbook`
 - `export KUBECONFIG="$(kind get kubeconfig --name="guestbook")"`
