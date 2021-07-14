@@ -3,6 +3,12 @@
 - Inspired by [https://github.com/sethp-nr/guestbook-workshop](https://github.com/sethp-nr/guestbook-workshop)
 - Using the [Kubebuilder](https://github.com/kubernetes-sigs/kubebuilder) Quick Start
 
+## Table of contents
+- [Dependencies for installation](#Dependencies)
+- [Imperative quick runbook](#Runbook-(imperative))
+- [Kubebuilder Init](#Kubebuilder-installation)
+- [Kubebuilder API and CRDs](#Kubebuilder-API)
+
 ## Dependencies
 This installation assumes Docker for Mac (which has [known issues](https://kind.sigs.k8s.io/docs/user/known-issues/));
 we'll be working around those issues with our deps and runbook.
@@ -41,6 +47,21 @@ add an annotation under metadata for one of the front end pods, and then
 in that pod.
 - Cleanup: `k delete -f https://raw.githubusercontent.com/kubernetes/examples/011284134a724c0ce30f9fa4ec966bdbdefb843e/guestbook/all-in-one/guestbook-all-in-one.yaml`
 
-## Kubebuilder
+## Kubebuilder installation
+
+> Kubebuilder init to create project structure and "boilerplate", and do a smoke test running main go module
+
 - `kubebuilder init --domain example.com`
+- `go run main.go` -> smoke test. You'll see something like:
+```
+controller-runtime.metrics	metrics server is starting to listen	{"addr": ":8080"}
+setup	starting manager
+controller-runtime.manager	starting metrics server	{"path": "/metrics"}
+```
+- curl metrics endpoint `localhost:8080/metrics` and you'll see a lot of REST calls, that confirms it's working.
+
+## Kubebuilder API
+
+> Description WIP
+
 - `kubebuilder create api`
