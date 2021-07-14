@@ -5,12 +5,34 @@
 
 ## Table of contents
 
+> Theory:
+- [Kubernetes API Design](#Kubernetes-API-Design)
+
+> Project related:
 - [Dependencies for installation](#Dependencies)
 - [Imperative quick runbook](#Runbook-(imperative))
-- [Kubebuilder Init](#Kubebuilder-installation)`
-- [Kubebuilder API : CRDs (and test)](#Kubebuilder-API)
-- []
+- [Kubebuilder Init](#Kubebuilder-installation)
+- [API : CRDs](#Kubebuilder-API)
+- [Controller: Logic for the API](#Controller)
 
+
+## Kubernetes API Design
+
+> Book: Programming Kubernetes
+
+To grok Kubernetes API Design and the "why", I highly recommend reading [Programming Kubernetes, an O'Reilly book](https://www.oreilly.com/library/view/programming-kubernetes/9781492047094/).
+
+There are a lot of topics in the first several chapters such as `kind`, `GVK` `GVR`,
+versions, groups, and the history and theory of these concepts. It's a fantastic start to this material.
+
+This tutorial assumes knowledge of that material, particularly chapters 1-3 "Kubernetes API Basics" and "client-go."
+
+- Kubebuilder Kubernetes API Design docs [here](https://book.kubebuilder.io/cronjob-tutorial/api-design.html)
+
+> Some basic API design rules for Kubernetes:
+
+- Serialized fields must be camelCase; use JSON structs to specify this.
+- A lot of these "types" are structs for documentation, metadata and validation (struct tags).
 ## Dependencies
 This installation assumes Docker for Mac (which has [known issues](https://kind.sigs.k8s.io/docs/user/known-issues/));
 we'll be working around those issues with our deps and runbook.
@@ -74,12 +96,6 @@ You'll see something like:
 - Once we create an API, we write a controller to implement that API.
 
 - Kubebuilder Kubernetes API Quickstart [here](https://book.kubebuilder.io/quick-start.html#create-an-api)
-- Kubebuilder Kubernetes API Design docs [here](https://book.kubebuilder.io/cronjob-tutorial/api-design.html)
-
-> Some basic API design rules for Kubernetes:
-
-- Serialized fields must be camelCase; use JSON structs to specify this.
-- A lot of these "types" are structs for documentation, metadata and validation (struct tags).
 
 > Let's create our API:
 
