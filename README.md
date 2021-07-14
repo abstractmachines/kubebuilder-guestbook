@@ -76,4 +76,11 @@ controller-runtime.manager	starting metrics server	{"path": "/metrics"}
 
 > Let's create our API:
 
-- Create an API: `kubebuilder create api`
+- Again note the credit for the phrasing and teaching of these ideas should go to Seth;
+please check out his repo on this material [here](https://github.com/sethp-nr/guestbook-workshop).
+
+- Create an API: `kubebuilder create api --group webapp --version v1 --kind Guestbook`
+- Select `Yes` for both Create Resource and Create Controller opts
+- Once it's installed, `tree api controllers` to tree both of those directories;
+the `/api/v1` dir has api types and some generated function defs, and `controllers`
+is where our "operational expertise" will be encoded (controller logic).
