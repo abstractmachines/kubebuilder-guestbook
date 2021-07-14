@@ -18,14 +18,20 @@
 
 ## Kubernetes API Design
 
-> Book: Programming Kubernetes
+- Kubernetes CRDs are the canonical API for custom resources.
 
-To grok Kubernetes API Design and the "why", I highly recommend reading [Programming Kubernetes, an O'Reilly book](https://www.oreilly.com/library/view/programming-kubernetes/9781492047094/).
+- Controllers are the business logic behind that API. Controllers _reconcile_ current state (`state`) with desired state (`spec`).
 
-There are a lot of topics in the first several chapters such as `kind`, `GVK` `GVR`,
-versions, groups, and the history and theory of these concepts. It's a fantastic start to this material.
+- Think of a `state machine`.
 
-This tutorial assumes knowledge of that material, particularly chapters 1-3 "Kubernetes API Basics" and "client-go."
+- Book: Programming Kubernetes
+
+  To grok Kubernetes API Design and the "why", I highly recommend reading [Programming Kubernetes, an O'Reilly book](https://www.oreilly.com/library/view/programming-kubernetes/9781492047094/).
+
+  There are a lot of topics in the first several chapters such as `kind`, `GVK` `GVR`,
+  versions, groups, and the history and theory of these concepts. It's a fantastic start to this material.
+
+  This tutorial assumes knowledge of that material, particularly chapters 1-3 "Kubernetes API Basics" and "client-go."
 
 - Kubebuilder Kubernetes API Design docs [here](https://book.kubebuilder.io/cronjob-tutorial/api-design.html)
 
@@ -113,4 +119,11 @@ is where our "operational expertise" will be encoded (controller logic).
   make test
   ```
   ... expected result is "no test files.... ok" result.
+
+## Controller
+
+> Reconciliation: Spec and State
+
+- Let's fill out the controller logic with "reconciling" the current state with 
+our desired state (e.g. spec), in `./controllers/guestbook_controller.go`.
 
