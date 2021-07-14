@@ -33,7 +33,7 @@ we'll be working around those issues with our deps and runbook.
 `create/apply`, and then observe how editing and changing resources imperatively
 will take effect.
 
-> _Once we do this brief imperative "confirmation that things are working", we'll delete these resources and redo things declaratively.
+> *Once we do this brief imperative "confirmation that things are working", we'll delete these resources and redo things declaratively.*
 
 - `kind create cluster guestbook`
 - `k get nodes` --> control plane
@@ -62,6 +62,18 @@ controller-runtime.manager	starting metrics server	{"path": "/metrics"}
 
 ## Kubebuilder API
 
-> Description WIP
+> **Overview:** Custom Resources are considered an API for Kubernetes operators. When we give our resource a `kind`, we are creating a new `type` of sorts.
 
-- `kubebuilder create api`
+- Once we create an API, we write a controller to implement that API.
+
+- Kubebuilder Kubernetes API Quickstart [here](https://book.kubebuilder.io/quick-start.html#create-an-api)
+- Kubebuilder Kubernetes API Design docs [here](https://book.kubebuilder.io/cronjob-tutorial/api-design.html)
+
+> Some basic API design rules for Kubernetes:
+
+- Serialized fields must be camelCase; use JSON structs to specify this.
+- A lot of these "types" are structs for documentation, metadata and validation (struct tags).
+
+> Let's create our API:
+
+- Create an API: `kubebuilder create api`
