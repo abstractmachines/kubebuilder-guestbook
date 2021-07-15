@@ -25,6 +25,8 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
 	webappv1 "kubebuilder-guestbook/api/v1"
+
+	apierrors "k8s.io/apimachinery/pkg/api/errors"
 )
 
 // GuestbookReconciler reconciles a Guestbook object
@@ -47,10 +49,35 @@ type GuestbookReconciler struct {
 //
 // For more details, check Reconcile and its Result here:
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.7.2/pkg/reconcile
-func (r *GuestbookReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	_ = r.Log.WithValues("guestbook", req.NamespacedName)
+// func (r *GuestbookReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
+// 	_ = r.Log.WithValues("guestbook", req.NamespacedName)
 
-	// your logic here
+// 	// your logic here
+
+// 	return ctrl.Result{}, nil
+// }
+
+// rewriting the above function. Details:
+// instead of having Context as first function param to propagate Context to
+// chains of function calls, we instead invoke it here IN the function, and
+// set it as Context.Background (the root of the Context tree; an empty Context
+// which can never be cancelled). This likely simplifies things?
+// TODO what is the motivation for doing that
+func (r *GuestbookReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
+
+	ctx := context.Background()
+	log := r.Log.WithValues("guestbook", req.NamespacedName)
+
+	var guestbook webappv1.Guestbook
+	err := r.Get(ctx, req.NamespacedName, &guestbook)
+	if err != nil {
+		if apierrors.IsNotFound(err) {
+			return ctrl.Result{}, nil
+		}
+		return ctrl.Result{}, err
+	}
+
+	log.Info("Successfully retrieved Guestbook")
 
 	return ctrl.Result{}, nil
 }
