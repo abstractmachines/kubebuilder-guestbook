@@ -63,9 +63,9 @@ type GuestbookReconciler struct {
 // set it as Context.Background (the root of the Context tree; an empty Context
 // which can never be cancelled). This likely simplifies things?
 // TODO what is the motivation for doing that
-func (r *GuestbookReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
+func (r *GuestbookReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 
-	ctx := context.Background()
+	// ctx := context.Background() // upon `make test`, compiler said no babe
 	log := r.Log.WithValues("guestbook", req.NamespacedName)
 
 	var guestbook webappv1.Guestbook
